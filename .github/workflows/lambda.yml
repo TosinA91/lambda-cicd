@@ -5,7 +5,7 @@ on:
     branches:
       - main
     paths:
-      - 'lambda/'
+      - 'lambda/**'
 
 jobs:
   deploy-lambda: # Name of our job
@@ -16,7 +16,7 @@ jobs:
       - name: Set Up Python # Sets up python env
         uses: actions/setup-python@v2
         with:
-          python-version: '3.14'
+          python-version: '3.12'
 
       - name: Install Dependencies # Installs any packages
         run: |
@@ -27,7 +27,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
-          aws-access-secret-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
           aws-region: us-east-2
 
       - name: Deploy Lambda Function #Zips lambda directory and updates lambda function
