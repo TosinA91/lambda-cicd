@@ -4,7 +4,7 @@ Description: 'S3 Bucket with environment testing'
 Parameters:
   Environment:
     Type: String
-    Default: Test
+    Default: test
     AllowedValues:
       - test
       - staging
