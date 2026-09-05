@@ -1,10 +1,10 @@
 AWSTemplateFormatVersion: '2010-09-09'
-Description: 'S3 Bucket with environment testing'
+Description: 'S3 Bucket for CI/CD PR'
 
 Parameters:
   Environment:
     Type: String
-    Default: test
+    Default: Test
     AllowedValues:
       - test
       - staging
@@ -21,7 +21,7 @@ Resources:
         - Key: Project
           Value: TestingGithubActions
 
-Outputs:
-  BucketName:
-    Description: 'Name of the created S3 Bucket'
-    Value: !Ref MyS3Bucket
+  Outputs:
+    BucketName:
+      Description: 'Name of created S3 Bucket'
+      Value: !Ref MyS3Bucket
