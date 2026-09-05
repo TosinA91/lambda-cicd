@@ -15,7 +15,7 @@ jobs:
   validate-cfn:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v2
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -24,7 +24,7 @@ jobs:
           aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
           aws-region: us-east-2
 
-      - name: Validate Cloudformation Template
+      - name: Validate CLoudformation Template
         run: |
           aws cloudformation validate-template --template-body file://cloudformation/s3-bucket.yml
 
@@ -50,7 +50,7 @@ jobs:
     if: github.event.pull_request.merged == true
     steps:
       - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
@@ -59,4 +59,4 @@ jobs:
       - name: Delete Test Stack
         run: |
           stack_name="pr-test-stack-${{ github.event.pull_request.number }}"
-          aws cloudformation delete-stack --stack-name $stack_name
+          aws cloudformation delete-stack --stack_name $stack-name
