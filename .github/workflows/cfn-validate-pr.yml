@@ -3,7 +3,6 @@ name: Validate CloudFormation on PR
 on:
   pull_request:
     types: [opened, synchronize, reopened, closed]
-    if: github.event.action != 'closed'
     paths:
       - 'cloudformation/**'
 
@@ -14,6 +13,7 @@ permissions:
 jobs:
   validate-cfn:
     runs-on: ubuntu-latest
+    if: github.event.action != 'closed'
     steps:
       - uses: actions/checkout@v4
 
@@ -31,7 +31,7 @@ jobs:
       - name: Deploy our Stack
         run: |
           stack_name="pr-test-stack-${{ github.event.pull_request.number }}"
-          aws cloudformation deploy --stack-name $stack_name --template-file cloudformation/s3-bucket.yml --parameters-overrides Environment=test
+          aws cloudformation deploy --stack-name $stack_name --template-file cloudformation/s3-bucket.yml --parameter-overrides Environment=test
 
       - name: Comment on the PR
         uses: actions/github-script@v6
