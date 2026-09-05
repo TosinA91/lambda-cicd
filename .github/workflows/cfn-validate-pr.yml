@@ -30,7 +30,7 @@ jobs:
 
       - name: Deploy our Stack
         run: |
-          stack_name="pr-test-stack-${{ github.event.pull_request.number }}"
+          stack_name="oa-test-stack-${{ github.event.pull_request.number }}"
           aws cloudformation deploy --stack-name $stack_name --template-file cloudformation/s3-bucket.yml --parameter-overrides Environment=test
 
       - name: Comment on the PR
