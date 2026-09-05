@@ -4,7 +4,7 @@ Description: 'S3 Bucket for CI/CD PR'
 Parameters:
   Environment:
     Type: String
-    Default: Test
+    Default: test
     AllowedValues:
       - test
       - staging
@@ -21,7 +21,7 @@ Resources:
         - Key: Project
           Value: TestingGithubActions
 
-  Outputs:
-    BucketName:
-      Description: 'Name of created S3 Bucket'
-      Value: !Ref MyS3Bucket
+Outputs:
+  BucketName:
+    Description: 'Name of created S3 Bucket'
+    Value: !Ref MyS3Bucket
