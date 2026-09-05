@@ -31,7 +31,7 @@ jobs:
       - name: Deploy our Stack
         run: |
           stack_name="pr-test-stack-${{ github.event.pull_request.number }}"
-          aws cloudformation create-stack --stack-name $stack_name --template-body file://cloudformation/s3-bucket.yml --parameters ParameterKey=Environment ParameterValue=test
+          aws cloudformation deploy --stack-name $stack_name --template-file cloudformation/s3-bucket.yml --parameters-overrides Environment=test
 
       - name: Comment on the PR
         uses: actions/github-script@v6
@@ -52,9 +52,10 @@ jobs:
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: ${{secrets.AWS_ACCESS_KEY_ID}}
-          aws-secret-access-key: ${{secrets.AWS_SECRET_ACCESS_KEY}}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
+
       - name: Delete Test Stack
         run: |
           stack_name="pr-test-stack-${{ github.event.pull_request.number }}"
